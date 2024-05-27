@@ -1,0 +1,20 @@
+{
+  "name": "playwright-cicd",
+  "version": "1.0.0",
+  "description": "A GitHub Actions repository for automating the execution of Playwright tests across multiple project repositories. This repository supports CI/CD workflows, ensuring that all tagged tests are run and verified before code merges.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["Playwright", "CI/CD", "Test Automation", "Workflow Automation"],
+  "author": "afonte15",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afonte15/playwright-cicd"
+  },
+  "homepage": "https://github.com/afonte15/playwright-cicd#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0"
+  }
+}
