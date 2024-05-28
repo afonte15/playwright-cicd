@@ -34,6 +34,7 @@ jobs:
       with:
         repository: ${{ inputs.playwright_repo }}
         ref: ${{ inputs.playwright_repo_ref }}
+        token: ${{ secrets.REPO_GITHUB_TOKEN }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -42,7 +43,7 @@ jobs:
 
     - name: Install Dependencies
       run: npm install
- 
+
     - name: Run Playwright Tests with Tag
       run: ${{ inputs.run_command }} --grep @${{ inputs.tag }}
       env:
