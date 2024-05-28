@@ -1,0 +1,44 @@
+name: Run Tagged Playwright Tests
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Tag to filter tests'
+        required: true
+        type: string
+      playwright_repo:
+        description: 'Playwright Automation Repository'
+        required: true
+        type: string
+      playwright_repo_ref:
+        description: 'Branch or commit to use in the Playwright repository'
+        required: false
+        type: string
+        default: 'main'
+      run_command:
+        description: 'Command to run the Playwright tests'
+        required: true
+        type: string
+
+jobs:
+  run-tagged-playwright-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Playwright Automation Repo
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.playwright_repo }}
+        ref: ${{ inputs.playwright_repo_ref }}
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install Dependencies
+      run: npm install
+ 
+    - name: Run Playwright Tests with Tag
+      run: ${{ inputs.run_command }} --grep @${{ inputs.tag }}

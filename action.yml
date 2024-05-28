@@ -1,0 +1,19 @@
+name: 'Run Playwright Tests'
+description: 'A GitHub Action to run Playwright tests with specified tags'
+inputs:
+  tag:
+    description: 'Tag to filter tests'
+    required: true
+  playwright_repo:
+    description: 'Playwright Automation Repository'
+    required: true
+  playwright_repo_ref:
+    description: 'Branch or commit to use in the Playwright repository'
+    required: false
+    default: 'main'
+  run_command:
+    description: 'Command to run the Playwright tests'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
