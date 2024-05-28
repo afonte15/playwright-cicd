@@ -15,5 +15,5 @@ inputs:
     description: 'Command to run the Playwright tests'
     required: true
 runs:
-  using: 'node12'
+  using: 'node20'
   main: 'index.js'
