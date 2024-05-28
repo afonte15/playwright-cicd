@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 try {
   const tag = core.getInput('tag');
   const runCommand = core.getInput('run_command');
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.REPO_GITHUB_TOKEN;
 
   console.log(`Running tests with tag: ${tag}`);
 
