@@ -20,6 +20,9 @@ on:
         description: 'Command to run the Playwright tests'
         required: true
         type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 
 jobs:
   run-tagged-playwright-tests:
