@@ -16,8 +16,8 @@ on:
         required: false
         type: string
         default: 'main'
-      run_command:
-        description: 'Command to run the Playwright tests'
+      environment:
+        description: 'Environment to run the tests against'
         required: true
         type: string
     secrets:
@@ -45,9 +45,23 @@ jobs:
       run: npm install
 
     - name: Install Playwright Browsers
-      run: npx playwright install
+      run: npx playwright install --with-deps
+
+    - name: Set Environment Variables
+      run: |
+        if [ "${{ inputs.environment }}" == "qa" ]; then
+          echo "BASE_URL=${{ env.QA_BASE_URL }}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=${{ env.QA_ENVIRONMENT }}" >> $GITHUB_ENV
+        elif [ "${{ inputs.environment }}" == "staging" ]; then
+          echo "BASE_URL=${{ env.STAGING_BASE_URL }}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=${{ env.STAGING_ENVIRONMENT }}" >> $GITHUB_ENV
+        fi
 
     - name: Run Playwright Tests with Tag
-      run: ${{ inputs.run_command }} --grep @${{ inputs.tag }}
+      run: TEST_ENV=${{ inputs.environment }} ${{ inputs.run_command }} --grep @${{ inputs.tag }}
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
+        QA_BASE_URL: ${{ secrets.QA_BASE_URL }}
+        QA_ENVIRONMENT: ${{ secrets.QA_ENVIRONMENT }}
+        STAGING_BASE_URL: ${{ secrets.STAGING_BASE_URL }}
+        STAGING_ENVIRONMENT: ${{ secrets.STAGING_ENVIRONMENT }}
