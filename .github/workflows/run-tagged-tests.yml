@@ -28,13 +28,13 @@ on:
       REPO_GITHUB_TOKEN:
         required: true
       QA_BASE_URL:
-        required: true
+        required: false
       QA_ENVIRONMENT:
-        required: true
+        required: false
       STAGING_BASE_URL:
-        required: true
+        required: false
       STAGING_ENVIRONMENT:
-        required: true
+        required: false
 
 jobs:
   run-tagged-playwright-tests:
