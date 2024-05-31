@@ -41,6 +41,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Echo Environment Before Dispatch
+        run: |
+          echo "Dispatching tests against the ${{ inputs.environment }} environment"
+
       - name: Checkout Playwright Automation Repo
         uses: actions/checkout@v3
         with:
