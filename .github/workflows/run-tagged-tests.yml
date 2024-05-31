@@ -70,8 +70,8 @@ jobs:
         fi
     - name: Log Environment Variables
       run: |
-      echo "Environment: $ENVIRONMENT"
-      echo "Base URL: $BASE_URL"
+        echo "Environment: $ENVIRONMENT"
+        echo "Base URL: $BASE_URL"
 
     - name: Run Playwright Tests with Tag
       run: TEST_ENV=${{ inputs.environment }} ${{ inputs.run_command }} --grep @${{ inputs.tag }}
