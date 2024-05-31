@@ -27,13 +27,13 @@ on:
     secrets:
       REPO_GITHUB_TOKEN:
         required: true
-      QA_BASE_URL: # Added this secret
+      QA_BASE_URL:
         required: true
-      QA_ENVIRONMENT: # Added this secret
+      QA_ENVIRONMENT:
         required: true
-      STAGING_BASE_URL: # Added this secret
+      STAGING_BASE_URL:
         required: true
-      STAGING_ENVIRONMENT: # Added this secret
+      STAGING_ENVIRONMENT:
         required: true
 
 jobs:
@@ -59,15 +59,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    - name: Run Playwright Tests with Tag
+    - name: Set Environment Variables
       run: |
         if [ "${{ inputs.environment }}" == "qa" ]; then
-          BASE_URL=${{ secrets.QA_BASE_URL }}
-          ENVIRONMENT=${{ secrets.QA_ENVIRONMENT }}
+          echo "BASE_URL=${{ secrets.QA_BASE_URL }}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=${{ secrets.QA_ENVIRONMENT }}" >> $GITHUB_ENV
         elif [ "${{ inputs.environment }}" == "staging" ]; then
-          BASE_URL=${{ secrets.STAGING_BASE_URL }}
-          ENVIRONMENT=${{ secrets.STAGING_ENVIRONMENT }}
+          echo "BASE_URL=${{ secrets.STAGING_BASE_URL }}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=${{ secrets.STAGING_ENVIRONMENT }}" >> $GITHUB_ENV
         fi
-        TEST_ENV=${{ inputs.environment }} ${{ inputs.run_command }} --grep @${{ inputs.tag }}
+
+    - name: Run Playwright Tests with Tag
+      run: TEST_ENV=${{ inputs.environment }} ${{ inputs.run_command }} --grep @${{ inputs.tag }}
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
