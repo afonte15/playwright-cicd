@@ -68,6 +68,10 @@ jobs:
           echo "BASE_URL=${{ secrets.STAGING_BASE_URL }}" >> $GITHUB_ENV
           echo "ENVIRONMENT=${{ secrets.STAGING_ENVIRONMENT }}" >> $GITHUB_ENV
         fi
+    - name: Log Environment Variables
+      run: |
+      echo "Environment: $ENVIRONMENT"
+      echo "Base URL: $BASE_URL"
 
     - name: Run Playwright Tests with Tag
       run: TEST_ENV=${{ inputs.environment }} ${{ inputs.run_command }} --grep @${{ inputs.tag }}
