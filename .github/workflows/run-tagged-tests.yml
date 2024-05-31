@@ -39,11 +39,16 @@ on:
 jobs:
   run-tagged-playwright-tests:
     runs-on: ubuntu-latest
-
     steps:
       - name: Echo Environment Before Dispatch
         run: |
-          echo "Dispatching tests against the ${{ inputs.environment }} environment"
+          if [ "${{ inputs.environment }}" == "qa" ]; then
+            echo "Dispatching tests against the QA environment"
+          elif [ "${{ inputs.environment }}" == "staging" ]; then
+            echo "Dispatching tests against the Staging environment"
+          else
+            echo "Dispatching tests against an unknown environment"
+          fi
 
       - name: Checkout Playwright Automation Repo
         uses: actions/checkout@v3
@@ -72,6 +77,7 @@ jobs:
             echo "BASE_URL=${{ secrets.STAGING_BASE_URL }}" >> $GITHUB_ENV
             echo "ENVIRONMENT=${{ secrets.STAGING_ENVIRONMENT }}" >> $GITHUB_ENV
           fi
+
       - name: Log Environment Variables
         run: |
           echo "Environment: $ENVIRONMENT"
