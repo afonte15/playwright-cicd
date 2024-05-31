@@ -51,7 +51,7 @@ jobs:
           fi
 
       - name: Checkout Playwright Automation Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ inputs.playwright_repo }}
           ref: ${{ inputs.playwright_repo_ref }}
