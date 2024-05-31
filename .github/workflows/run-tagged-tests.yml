@@ -34,7 +34,7 @@ on:
       STAGING_BASE_URL:
         required: true
       STAGING_ENVIRONMENT:
-        required: tru
+        required: true
 
 jobs:
   run-tagged-playwright-tests:
