@@ -26,7 +26,7 @@ on:
         type: string
     secrets:
       REPO_GITHUB_TOKEN:
-        required: true
+        required: false
       QA_BASE_URL:
         required: false
       QA_ENVIRONMENT:
