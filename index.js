@@ -9,10 +9,16 @@ async function run() {
     const token = process.env.REPO_GITHUB_TOKEN;
     const environment = process.env.ENVIRONMENT;
     const baseUrl = process.env.BASE_URL;
+    const apiKey = process.env.API_KEY;
+    const username = process.env.USERNAME;
+    const password = process.env.PASSWORD;
 
     console.log(`Running tests with tag: ${tag}`);
     console.log(`Environment: ${environment}`);
     console.log(`Base URL: ${baseUrl}`);
+    console.log(`API Key: ${apiKey ? '****' : 'Not Provided'}`);
+    console.log(`Username: ${username ? '****' : 'Not Provided'}`);
+    console.log(`Password: ${password ? '****' : 'Not Provided'}`);
 
     const result = execSync(`${runCommand} --grep @${tag}`, { encoding: 'utf-8' });
     console.log(result);
