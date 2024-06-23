@@ -1,34 +1,18 @@
-name: 'Run Playwright Tests'
-description: 'A GitHub Action to run Playwright tests with specified tags'
+name: Dispatch Event
+
+description: An action to dispatch an event to another repository
+
 inputs:
-  tag:
-    description: 'Tag to filter tests'
+  repo:
+    description: 'Plawyright Automation Repository'
     required: true
-  playwright_repo:
-    description: 'Playwright Automation Repository'
+  event-type:
+    description: 'Run Tests'
     required: true
-  playwright_repo_ref:
-    description: 'Branch or commit to use in the Playwright repository'
+  client-payload:
+    description: 'JSON payload to send with the event'
     required: true
-    default: 'main'
-  run_command:
-    description: 'Command to run the Playwright tests'
-    required: true
-  environment:
-    description: 'Environment to run the tests against'
-    required: true
-  base_url:
-    description: 'Base URL for the environment'
-    required: false
-  api_key:
-    description: 'API Key for the environment'
-    required: false
-  username:
-    description: 'Username for the environment'
-    required: false
-  password:
-    description: 'Password for the environment'
-    required: false
+
 runs:
   using: 'node20'
   main: 'index.js'
