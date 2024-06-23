@@ -1,35 +1,27 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { execSync } = require('child_process');
 
 async function run() {
   try {
-    const tag = core.getInput('tag');
-    const runCommand = core.getInput('run_command');
-    const token = process.env.REPO_GITHUB_TOKEN;
-    const environment = process.env.ENVIRONMENT;
-    const baseUrl = process.env.BASE_URL;
+    const repo = core.getInput('repo');
+    const eventType = core.getInput('event-type');
+    const clientPayload = JSON.parse(core.getInput('client-payload'));
 
-    console.log(`Running tests with tag: ${tag}`);
-    console.log(`Environment: ${environment}`);
-    console.log(`Base URL: ${baseUrl}`);
+    const [owner, repoName] = repo.split('/');
 
-    const result = execSync(`${runCommand} --grep @${tag}`, { encoding: 'utf-8' });
-    console.log(result);
+    const octokit = github.getOctokit(core.getInput('repo-token'));
 
-    core.setOutput('test-result', result);
+    await octokit.rest.repos.createDispatchEvent({
+      owner,
+      repo: repoName,
+      event_type: eventType,
+      client_payload: clientPayload
+    });
 
-    if (token) {
-      const octokit = github.getOctokit(token);
-      const { data: pullRequest } = await octokit.rest.pulls.get({
-        owner: github.context.repo.owner,
-        repo: github.context.repo.repo,
-        pull_number: github.context.payload.pull_request.number
-      });
-      console.log(`PR Title: ${pullRequest.title}`);
-    }
+    core.info(`Dispatched event ${eventType} to ${repo}`);
+
   } catch (error) {
-    core.setFailed(`Action failed with error: ${error.message}`);
+    core.setFailed(error.message);
   }
 }
 
