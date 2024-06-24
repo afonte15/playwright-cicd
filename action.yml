@@ -10,10 +10,7 @@ inputs:
   client-payload:
     description: 'JSON payload to send with the dispatch'
     required: true
-  repo-token:
-    description: 'GitHub token'
-    required: true
 
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'index.js'
