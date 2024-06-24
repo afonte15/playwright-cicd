@@ -21,14 +21,14 @@ on:
 
 jobs:
   dispatch-playwright-tests:
-    uses: afonte15/playwright-cicd/.github/workflows/run-tagged-tests.yml@main
+    uses: afonte15/playwright-cicd@main
     with:
       tag: 'tagNames'  # Tag to filter the tests
       playwright_repo: 'yourusername/playwright-automation'  # Playwright Automation Repository
       playwright_repo_ref: 'main'  # Branch or commit to use
       run_command: 'npx playwright test'  # Command to run the Playwright tests - adjust as needed
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} - if needed
 
 
 ```
