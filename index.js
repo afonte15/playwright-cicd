@@ -12,11 +12,19 @@ async function run() {
       throw new Error('GITHUB_TOKEN is not available in the environment');
     }
 
+    core.info(`repo: ${repo}`);
+    core.info(`eventType: ${eventType}`);
+    core.info(`clientPayload: ${JSON.stringify(clientPayload)}`);
+    core.info(`repoToken: ${repoToken ? 'available' : 'not available'}`);
+
     const [owner, repoName] = repo.split('/');
+
+    core.info(`owner: ${owner}`);
+    core.info(`repoName: ${repoName}`);
 
     const octokit = github.getOctokit(repoToken);
 
-    await octokit.rest.repos.createDispatchEvent({
+    const response = await octokit.rest.repos.createDispatchEvent({
       owner,
       repo: repoName,
       event_type: eventType,
@@ -24,6 +32,7 @@ async function run() {
     });
 
     core.info(`Dispatched event ${eventType} to ${repo}`);
+    core.info(`Response: ${JSON.stringify(response)}`);
 
   } catch (error) {
     core.setFailed(error.message);
