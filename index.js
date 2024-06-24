@@ -6,7 +6,11 @@ async function run() {
     const repo = core.getInput('repo');
     const eventType = core.getInput('event-type');
     const clientPayload = JSON.parse(core.getInput('client-payload'));
-    const repoToken = core.getInput('repo-token');
+    const repoToken = process.env.GITHUB_TOKEN;
+
+    if (!repoToken) {
+      throw new Error('GITHUB_TOKEN is not available in the environment');
+    }
 
     const [owner, repoName] = repo.split('/');
 
