@@ -2,7 +2,7 @@ name: Dispatch Event
 description: An action to dispatch an event to another repository
 inputs:
   repo:
-    description: 'Send to Playwright Repo'
+    description: 'Target repository (e.g., organization/repoB)'
     required: true
   event-type:
     description: 'Event type for the repository dispatch'
@@ -10,17 +10,10 @@ inputs:
   client-payload:
     description: 'JSON payload to send with the dispatch'
     required: true
+  repo-token:
+    description: 'GitHub token'
+    required: true
 
 runs:
-  using: 'composite'
-  steps:
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-    - name: Install dependencies
-      run: npm install
-      shell: bash
-    - name: Run the main script
-      run: node index.js
-      shell: bash
+  using: 'node16'
+  main: 'index.js'
