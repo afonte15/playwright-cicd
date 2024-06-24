@@ -6,10 +6,11 @@ async function run() {
     const repo = core.getInput('repo');
     const eventType = core.getInput('event-type');
     const clientPayload = JSON.parse(core.getInput('client-payload'));
+    // const repoToken = core.getInput('repo-token');
 
     const [owner, repoName] = repo.split('/');
 
-    const octokit = github.getOctokit(core.getInput('repo-token'));
+    //onst octokit = github.getOctokit(repoToken);
 
     await octokit.rest.repos.createDispatchEvent({
       owner,
