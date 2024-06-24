@@ -31104,11 +31104,12 @@ async function run() {
 
     const octokit = github.getOctokit(repoToken);
 
-    const response = await octokit.rest.repos.createDispatchEvent({
+    const response = await octokit.rest.actions.createWorkflowDispatch({
       owner,
       repo: repoName,
-      event_type: eventType,
-      client_payload: clientPayload
+      workflow_id: eventType,
+      ref: 'main',
+      inputs: clientPayload
     });
 
     core.info(`Dispatched event ${eventType} to ${repo}`);
