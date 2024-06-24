@@ -10,9 +10,6 @@ inputs:
   client-payload:
     description: 'JSON payload to send with the dispatch'
     required: true
-  repo-token:
-    description: 'GitHub token'
-    required: true
 
 runs:
   using: 'composite'
@@ -25,3 +22,4 @@ runs:
       run: npm install
     - name: Run the main script
       run: node index.js
+      shell: bash
