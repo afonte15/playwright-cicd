@@ -4,7 +4,7 @@
   "description": "A GitHub Actions repository for automating the execution of Playwright tests across multiple project repositories. This repository supports CI/CD workflows, ensuring that all tagged tests are run and verified before code merges.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "keywords": ["Playwright", "CI/CD", "Test Automation", "Workflow Automation"],
   "author": "afonte15",
