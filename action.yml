@@ -1,8 +1,8 @@
-name: Dispatch Event
-description: An action to dispatch an event to another repository
+name: Dispatch Event to Playwright Automation Repo
+description: An action to dispatch an event to a Playwright Automation Repo
 inputs:
   repo:
-    description: 'Target repository (e.g., organization/repoB)'
+    description: 'Send Inputs to Playwright Automation Repo'
     required: true
   event-type:
     description: 'Event type for the repository dispatch'
