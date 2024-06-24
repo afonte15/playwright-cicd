@@ -1,18 +1,27 @@
 name: Dispatch Event
-
 description: An action to dispatch an event to another repository
-
 inputs:
   repo:
-    description: 'Plawyright Automation Repository'
+    description: 'Send to Playwright Repo'
     required: true
   event-type:
-    description: 'Run Tests'
+    description: 'Event type for the repository dispatch'
     required: true
   client-payload:
-    description: 'JSON payload to send with the event'
+    description: 'JSON payload to send with the dispatch'
+    required: true
+  repo-token:
+    description: 'GitHub token'
     required: true
 
 runs:
-  using: 'node16'
-  main: 'index.js'
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - name: Install dependencies
+      run: npm install
+    - name: Run the main script
+      run: node index.js
