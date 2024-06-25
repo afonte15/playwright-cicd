@@ -11,6 +11,10 @@ inputs:
     description: 'JSON payload to send with the dispatch'
     required: true
 
+outputs:
+  response:
+    description: 'The response from the dispatch event'
+
 runs:
   using: 'node20'
   main: 'dist/index.js'
