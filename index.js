@@ -26,14 +26,18 @@ async function run() {
 
     const octokit = github.getOctokit(repoToken);
 
-    await octokit.rest.repos.createDispatchEvent({
+    const response = await octokit.rest.repos.createDispatchEvent({
       owner,
       repo: repoName,
       event_type: eventType,
       client_payload: clientPayload
     });
 
+    // Set output for the dispatched event
+    core.setOutput('response', `Dispatched event ${eventType} to ${repo}`);
+
     core.info(`Dispatched event ${eventType} to ${repo}`);
+    core.info(`Response: ${JSON.stringify(response)}`);
 
   } catch (error) {
     core.setFailed(error.message);

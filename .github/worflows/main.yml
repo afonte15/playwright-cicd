@@ -16,3 +16,6 @@ jobs:
           client-payload: '{"env": "qa", "grep": "@e2e"}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+     - name: Get the output
+        run: echo ${{ steps.run.outputs.response }}
