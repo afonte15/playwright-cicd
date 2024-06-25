@@ -1,21 +1,25 @@
-name: Test Local Action
+name: Test Public GitHub Action
 
-on: push
+on: [push]
 
 jobs:
-  test:
+  test_action_job:
     runs-on: ubuntu-latest
+    name: A job to test the public GitHub Action
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Run Local Action
-        uses: ./ 
+      - name: Test Dispatch Action
+        id: dispatch
+        uses: afonte15/playwright-cicd@main
         with:
           repo: 'afonte15/playwright-demo'
           event-type: 'run-tests'
           client-payload: '{"env": "qa", "grep": "@e2e"}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-     - name: Get the output
-        run: echo ${{ steps.run.outputs.response }}
+      
+     
+      - name: Get the dispatch result
+        run: echo "The dispatch response is ${{ steps.dispatch.outputs.response }}"
