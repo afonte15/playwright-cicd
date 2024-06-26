@@ -17,8 +17,7 @@ jobs:
           repo: 'afonte15/playwright-demo'
           event-type: 'run-tests'
           client-payload: '{"env": "qa", "grep": "@e2e"}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repotoken: ${{ secrets.PAT_TOKEN }}
       
      
       - name: Get the dispatch result
