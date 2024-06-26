@@ -10,6 +10,10 @@ inputs:
   client-payload:
     description: 'JSON payload to send with the dispatch'
     required: true
+  token:
+    description: 'GITHUB_TOKEN or Personal Access Token (PAT) for the repository'
+    required: true
+
 
 outputs:
   response:
