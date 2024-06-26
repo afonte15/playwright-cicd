@@ -6,11 +6,10 @@ async function run() {
     const repo = core.getInput('repo');
     const eventType = core.getInput('event-type');
     const clientPayload = JSON.parse(core.getInput('client-payload'));
-    const token = core.getInput('token');
 
     const [owner, repoName] = repo.split('/');
+    const repoToken = process.env.GITHUB_TOKEN;
 
-    const repoToken = github.getOctokit(token);
 
     if (!repoToken) {
       throw new Error('GITHUB_TOKEN is not available in the environment');

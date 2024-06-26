@@ -31088,9 +31088,8 @@ async function run() {
     const clientPayload = JSON.parse(core.getInput('client-payload'));
 
     const [owner, repoName] = repo.split('/');
-
-    // Use GITHUB_TOKEN from environment variables
     const repoToken = process.env.GITHUB_TOKEN;
+
 
     if (!repoToken) {
       throw new Error('GITHUB_TOKEN is not available in the environment');
